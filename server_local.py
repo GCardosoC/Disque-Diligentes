@@ -602,7 +602,7 @@ def garantir_motor_gmaps():
         pass
 
     import shutil
-    bin_linux = shutil.which("google_maps_scraper")
+    bin_linux = shutil.which("google-maps-scraper") or shutil.which("google_maps_scraper")
     exe_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "google-maps-scraper-kit", "google_maps_scraper.exe")
     cmd = None
     cwd = None

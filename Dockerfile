@@ -32,4 +32,5 @@ ENV HOST=0.0.0.0
 EXPOSE 8080
 EXPOSE 10000
 
-CMD ["./entrypoint.sh"]
+# Sobrescreve o ENTRYPOINT da imagem base (que executava apenas o google-maps-scraper)
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
