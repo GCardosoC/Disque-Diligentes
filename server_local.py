@@ -17,6 +17,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 PORT = int(os.environ.get("PORT", 8000))
 HOST = os.environ.get("HOST", "127.0.0.1")
 APP_ACCESS_TOKEN = os.environ.get("APP_ACCESS_TOKEN", "").strip()
+GMAPS_PORT = int(os.environ.get("GMAPS_PORT", 8080))
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -590,10 +591,10 @@ import csv
 import io
 
 def garantir_motor_gmaps():
-    """Verifica se o motor do Google Maps Scraper está respondendo na porta 8080.
+    """Verifica se o motor do Google Maps Scraper está respondendo na porta GMAPS_PORT.
     Se não estiver e o executável existir, inicia o processo em background."""
     try:
-        req = urllib.request.Request("http://127.0.0.1:8080/api/v1/jobs")
+        req = urllib.request.Request(f"http://127.0.0.1:{GMAPS_PORT}/api/v1/jobs")
         with urllib.request.urlopen(req, timeout=1.5) as resp:
             if resp.status == 200:
                 return True
@@ -606,11 +607,11 @@ def garantir_motor_gmaps():
     cmd = None
     cwd = None
     if os.path.exists(exe_path):
-        cmd = [exe_path, "-web", "-data-folder", "webdata"]
+        cmd = [exe_path, "-web", "-addr", f"127.0.0.1:{GMAPS_PORT}", "-data-folder", "webdata"]
         cwd = os.path.dirname(exe_path)
     elif bin_linux:
         os.makedirs("/tmp/gmapsdata", exist_ok=True)
-        cmd = [bin_linux, "-web", "-data-folder", "/tmp/gmapsdata"]
+        cmd = [bin_linux, "-web", "-addr", f"127.0.0.1:{GMAPS_PORT}", "-data-folder", "/tmp/gmapsdata"]
         cwd = "/tmp"
 
     if cmd:
@@ -619,7 +620,7 @@ def garantir_motor_gmaps():
             for _ in range(10):
                 time.sleep(0.5)
                 try:
-                    with urllib.request.urlopen("http://127.0.0.1:8080/api/v1/jobs", timeout=1) as resp:
+                    with urllib.request.urlopen(f"http://127.0.0.1:{GMAPS_PORT}/api/v1/jobs", timeout=1) as resp:
                         if resp.status == 200:
                             return True
                 except Exception:
@@ -637,7 +638,7 @@ def extrair_leads_google_maps(cidade_solic, uf_solic="", lat=None, lon=None, dep
     """
     garantir_motor_gmaps()
 
-    engine_url = "http://127.0.0.1:8080/api/v1/jobs"
+    engine_url = f"http://127.0.0.1:{GMAPS_PORT}/api/v1/jobs"
     if termo_personalizado and termo_personalizado.strip():
         kw = termo_personalizado.strip()
     elif uf_solic:
@@ -936,7 +937,7 @@ class CustomHandler(SimpleHTTPRequestHandler):
                     self._enviar_json(200, {"dados": contatos, "total": len(contatos), "fonte": "Google Maps"}, origin_hdr)
                     return
                 except urllib.error.URLError:
-                    self._enviar_json(503, {"erro": "Motor Google Maps Scraper offline na porta 8080. Inicie o scraper localmente."}, origin_hdr)
+                    self._enviar_json(503, {"erro": f"Motor Google Maps Scraper offline na porta {GMAPS_PORT}. Inicie o scraper localmente."}, origin_hdr)
                     return
                 except Exception as e_gmaps:
                     sys.stderr.write(f"[ERRO GMAPS] {repr(e_gmaps)}\n")

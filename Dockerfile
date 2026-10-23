@@ -1,10 +1,12 @@
 # ------------------------------------------------------------------------------
-# Dockerfile para Render.com / Nuvem (Diretório extrator_netlify)
+# Dockerfile para Render.com / Nuvem
+# Aplicação: Disque Diligentes (Extrator Web + Google Maps Scraper + WhatsApp)
 # ------------------------------------------------------------------------------
 FROM gosom/google-maps-scraper:v1.18.1
 
 USER root
 
+# Instala Python 3 e utilitários essenciais
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     curl \
@@ -13,17 +15,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
+# Copia os arquivos da aplicação
 COPY index.html ./index.html
 COPY server_local.py ./server_local.py
 COPY cidades_brasil.json ./cidades_brasil.json
 COPY coordenadas_cidades.json ./coordenadas_cidades.json
 COPY entrypoint.sh ./entrypoint.sh
 
+# Garante permissão de execução no script de entrada
 RUN chmod +x ./entrypoint.sh
 
-ENV PORT=10000
+# Porta pública exposta para o Render
+ENV PORT=8080
 ENV HOST=0.0.0.0
 
+EXPOSE 8080
 EXPOSE 10000
 
 CMD ["./entrypoint.sh"]
