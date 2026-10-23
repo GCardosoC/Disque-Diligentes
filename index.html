@@ -3571,6 +3571,14 @@
                     </div>
                     <span id="sidebarCollapsedBadge" class="sidebar-collapsed-badge" style="display: none;">0</span>
                 </button>
+                <button type="button" class="sidebar-tab" id="tabNovidades" onclick="abrirModalChangelog();" title="O que há de novo (Notas de Atualização)">
+                    <span class="sidebar-tab-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </span>
+                    <div class="sidebar-tab-label">
+                        <span>Novidades <span class="sidebar-badge-inline" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4); font-size: 9px;">NOVO</span></span>
+                    </div>
+                </button>
             </nav>
         </aside>
 
@@ -7602,7 +7610,7 @@
         // ==========================================================================
         // ETAPA 1.3: CARD FLUTUANTE DE NOTAS DE ATUALIZAÇÃO (CANTO INFERIOR DIREITO)
         // ==========================================================================
-        const CURRENT_VERSION = 'v1.3';
+        const CURRENT_VERSION = 'v1.4';
         const STORAGE_KEY_CHANGELOG_DISMISSED = 'changelog_dismissed_version';
 
         function verificarExibicaoChangelogFlutuante() {
@@ -7633,7 +7641,7 @@
                             <span class="changelog-floating-title">Notas de Atualização</span>
                             <span class="changelog-floating-badge">${CURRENT_VERSION}</span>
                         </div>
-                        <span class="changelog-floating-date">Atualizado em 18 de Outubro de 2026</span>
+                        <span class="changelog-floating-date">Atualizado em 23 de Outubro de 2026</span>
                     </div>
                     <button type="button" class="changelog-floating-close" onclick="fecharCardChangelogFlutuante();" aria-label="Fechar nota" title="Fechar">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -7644,24 +7652,24 @@
                 </div>
                 <div class="changelog-floating-body">
                     <div class="changelog-floating-feature">
-                        <span class="changelog-floating-feature-icon">🔍</span>
+                        <span class="changelog-floating-feature-icon">🗺️</span>
                         <div class="changelog-floating-feature-text">
-                            <strong>Filtros no Disparador</strong>
-                            <div class="changelog-floating-feature-desc">Busca rápida e gaveta discreta por distância, status e cidades.</div>
+                            <strong>Busca via Google Maps</strong>
+                            <div class="changelog-floating-feature-desc">Extraia escritórios e contatos locais da comarca direto do Google Maps.</div>
                         </div>
                     </div>
                     <div class="changelog-floating-feature">
-                        <span class="changelog-floating-feature-icon">💾</span>
+                        <span class="changelog-floating-feature-icon">⚡</span>
                         <div class="changelog-floating-feature-text">
-                            <strong>Salvamento Automático</strong>
-                            <div class="changelog-floating-feature-desc">Fila de envios e cidades mantidas no navegador mesmo ao recarregar.</div>
+                            <strong>Sem Limite de Diligentes</strong>
+                            <div class="changelog-floating-feature-desc">Corrigida a limitação de 20 por vez; varredura contínua de todos os cadastrados.</div>
                         </div>
                     </div>
                     <div class="changelog-floating-feature">
-                        <span class="changelog-floating-feature-icon">🛠️</span>
+                        <span class="changelog-floating-feature-icon">🚀</span>
                         <div class="changelog-floating-feature-text">
-                            <strong>Correções Visuais & Bugs</strong>
-                            <div class="changelog-floating-feature-desc">Alinhamento de ícones, remoção de sobreposições e layout refinado.</div>
+                            <strong>Acesso Direto na Nuvem</strong>
+                            <div class="changelog-floating-feature-desc">Plataforma hospedada no Render para uso rápido em qualquer dispositivo.</div>
                         </div>
                     </div>
                 </div>
@@ -7777,37 +7785,37 @@
                 <div class="modal-title" style="display: flex; align-items: center; gap: 8px;">
                     <span>📌</span>
                     <span>O que há de novo no Disque Diligentes</span>
-                    <span class="changelog-tag-pill">v1.3</span>
+                    <span class="changelog-tag-pill">v1.4</span>
                 </div>
                 <button type="button" class="modal-close" onclick="fecharModalChangelog();" aria-label="Fechar">&times;</button>
             </div>
             <div class="modal-body" style="padding: 16px 20px;">
                 <div class="changelog-item">
-                    <div class="changelog-icon">🔍</div>
+                    <div class="changelog-icon">🗺️</div>
                     <div class="changelog-text">
-                        <h4>Filtros Avançados no Disparador</h4>
-                        <p>Busca instantânea e gaveta retrátil para filtrar contatos da esteira por raio de distância, status de envio e cidades.</p>
-                    </div>
-                </div>
-                <div class="changelog-item">
-                    <div class="changelog-icon">💾</div>
-                    <div class="changelog-text">
-                        <h4>Salvamento Automático Anti-Crash</h4>
-                        <p>Sua fila de disparos e cidades selecionadas agora ficam salvas no navegador (localStorage). Pode atualizar a página sem perder nada.</p>
-                    </div>
-                </div>
-                <div class="changelog-item">
-                    <div class="changelog-icon">🛠️</div>
-                    <div class="changelog-text">
-                        <h4>Correções Visuais & Refinamento de UI</h4>
-                        <p>Alinhamento preciso de ícones de busca, remoção de sobreposições de layout e visual padronizado no tema Executivo Dark.</p>
+                        <h4>Busca de Diligentes via Google Maps</h4>
+                        <p>Adicionada a opção de extrair escritórios de advocacia e correspondentes diretamente do Google Maps por cidade, capturando telefones, WhatsApp comercial, endereço completo e avaliações locais.</p>
                     </div>
                 </div>
                 <div class="changelog-item">
                     <div class="changelog-icon">⚡</div>
                     <div class="changelog-text">
-                        <h4>Limpar Fila / Nova Lista</h4>
-                        <p>Botão dedicado para resetar a esteira instantaneamente e iniciar o trabalho em novas comarcas sem conflito de dados.</p>
+                        <h4>Fim da Limitação de Diligentes por Vez</h4>
+                        <p>Corrigida a limitação de 20 diligentes por busca. O extrator agora executa varredura profunda rotativa e traz todos os correspondentes cadastrados na comarca de uma só vez, sem cortes.</p>
+                    </div>
+                </div>
+                <div class="changelog-item">
+                    <div class="changelog-icon">🚀</div>
+                    <div class="changelog-text">
+                        <h4>Acesso Online na Nuvem (Render)</h4>
+                        <p>A plataforma agora roda 100% online na nuvem, permitindo acesso fácil pelo celular, tablet ou computador, com semáforo anti-travamento e alta performance.</p>
+                    </div>
+                </div>
+                <div class="changelog-item">
+                    <div class="changelog-icon">🔍</div>
+                    <div class="changelog-text">
+                        <h4>Filtros Avançados no Disparador</h4>
+                        <p>Busca instantânea e gaveta retrátil para filtrar contatos da esteira por raio de distância, status de envio e cidades.</p>
                     </div>
                 </div>
             </div>
